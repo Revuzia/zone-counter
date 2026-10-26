@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Zone Counter · RF-DETR + supervision</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<style>body{font-family:system-ui;max-width:900px;margin:2rem auto}img{max-width:100%}table{border-collapse:collapse}td{padding:2px 10px;border-bottom:1px solid #ddd}</style></head>
+<body><div id="root"></div><script>
+const e=React.createElement;
+function App(){const[r,setR]=React.useState(null),[t,setT]=React.useState(0.5),[busy,setB]=React.useState(false);
+async function go(f){setB(true);const d=new FormData();d.append("file",f);d.append("threshold",t);
+ const res=await fetch("/api/detect",{method:"POST",body:d});setR(await res.json());setB(false);}
+return e("div",null,e("h1",null,"Zone Counter"),e("p",null,"Upload an image: RF-DETR detects objects, supervision counts what lands in the red zone."),
+ e("label",null,"Confidence ",e("input",{type:"number",step:0.05,min:0.1,max:0.95,value:t,onChange:x=>setT(x.target.value)})),
+ e("input",{type:"file",accept:"image/*",onChange:x=>go(x.target.files[0])}),busy&&e("p",null,"Running…"),
+ r&&e("div",null,e("h3",null,`Total: ${r.total} · In zone: ${Object.values(r.in_zone).reduce((a,b)=>a+b,0)}`),
+  e("table",null,e("tbody",null,Object.entries(r.counts).map(([k,v])=>e("tr",{key:k},e("td",null,k),e("td",null,v),e("td",null,`${r.in_zone[k]||0} in zone`))))),
+  e("img",{src:r.image})));}
+ReactDOM.createRoot(document.getElementById("root")).render(e(App));
+</script></body></html>
