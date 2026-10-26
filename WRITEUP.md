@@ -6,7 +6,7 @@ Here is how it works. A FastAPI backend loads **RF-DETR Nano** from the `rfdetr`
 
 What stood out to me was how little glue code I needed. Because supervision's `Detections` abstraction is model-agnostic, I could swap the detector without touching the analytics layer. Zone counting took only a few lines, and that's the part a real product (retail shelves, parking, safety zones) actually cares about.
 
-I'm honest about the scope: this is a weekend-sized demo running on CPU with COCO weights. My next steps would be letting users draw the zone in the browser, adding video with ByteTrack and line-crossing counts, and trying a fine-tuned RF-DETR model from Roboflow Universe.
+I'm honest about the scope: this is a focused, small-scope demo running on CPU with COCO weights. My next steps would be letting users draw the zone in the browser, adding video with ByteTrack and line-crossing counts, and trying a fine-tuned RF-DETR model from Roboflow Universe.
 
 I've been building production software since 2024, mostly React/TypeScript and Node/Python. This project showed me why developer experience is such a big part of Roboflow's appeal.
 
